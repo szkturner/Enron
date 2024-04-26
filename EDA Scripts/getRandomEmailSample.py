@@ -55,9 +55,25 @@ def generate_file_stream(data_path):
         for file in files:
             yield os.path.join(root, file)
 
+"""Populates an array of file paths with the contents of those files.
+
+Args:
+    file_array (array): An array of file paths usually generated from get_file_sample
+
+Returns:
+    array: of the contents of each file.
+"""
+def populate_files(file_array):
+    contents_array = []
+    for file_path in file_array:
+        with open(file, 'r') as file:
+            contents = file.read()
+            contents_array.append(contents)
+    return contents_array
+
 def main():
-    path = os.getcwd()
-    get_file_sample()
+    path = "C:\\Users\\sebtu\\Documents\\NLP Projects\\Enron\\data"
+    files = get_file_sample(40, path)
 
 if __name__ == '__main__':
     main()
