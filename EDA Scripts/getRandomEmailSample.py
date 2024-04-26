@@ -54,3 +54,10 @@ def generate_file_stream(data_path):
     for root, dirs, files in os.walk(data_path):
         for file in files:
             yield os.path.join(root, file)
+
+def main():
+    path = os.getcwd()
+    get_file_sample()
+
+if __name__ == '__main__':
+    main()
