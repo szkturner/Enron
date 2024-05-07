@@ -1,7 +1,10 @@
 """ Gathers a random sample of emails from the enron data set using reservoir sampling.
 """
+import email.parser
 import random
 import os 
+from email.parser import Parser
+from email.policy import default
 
 
 """ Get a given number of files from the enron data set randomly.
@@ -64,13 +67,30 @@ Returns:
     array: of the contents of each file.
 """
 def populate_files(file_array):
-    contents_array = []
+    msg_array = []
     for file_path in file_array:
-        with open(file, 'r') as file:
-            contents = file.read()
-            contents_array.append(contents)
-    return contents_array
+        with open(file_path, 'r') as file:
+            msg = Parser(policy=default).parse(file)
+            msg_array.append(msg)
+    return msg_array
 
+
+"""Processes an individual email and places it within a data frame breaking apart each individual portion
+
+Ars:
+    email_file (string): The raw string of an email containing information such as the sender, ID, email body, and 
+    other arguments
+
+Returns:
+    dataframe: with the properly processed email.
+"""
+def process_email(email_file):
+    return 
+
+"""Reads the email into a dictionary with appropriately named 
+"""
+def process_email(email):
+    return
 def main():
     path = "C:\\Users\\sebtu\\Documents\\NLP Projects\\Enron\\data"
     files = get_file_sample(40, path)
