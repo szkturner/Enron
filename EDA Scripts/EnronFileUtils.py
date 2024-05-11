@@ -14,7 +14,7 @@ Args:
     data_path (string): The path where the data is stored
 
 Returns:
-    dataframe: Of emails from enron dataset
+    Array: Of emails from enron dataset
 
 Raises:
     ValueError: If num files is negative.
@@ -24,6 +24,20 @@ def get_file_sample(num_files, data_path):
         raise ValueError("Number of files in sample must be greater than 0")
     
     return reservoir_sample(num_files, data_path)
+
+"""Returns a sample of emails populated as email.message objects.
+
+Args:
+    num_files (int): The number of emails to return 
+    data_path (string): The path to the data set
+
+Returns:
+    Array: Of email.message objects
+"""
+def get_email_sample(num_files, data_path):
+    email_sample = get_file_sample(num_files, data_path)
+    email_sample = populate_files(email_sample)
+    return email_sample
 
 """Uses Reservoir Sampling to select a sample of files without needing to enumerate the number of files.
 
@@ -58,13 +72,13 @@ def generate_file_stream(data_path):
         for file in files:
             yield os.path.join(root, file)
 
-"""Populates an array of file paths with the contents of those files.
+"""Populates an array of file paths with the contents of those files as email.message objects
 
 Args:
-    file_array (array): An array of file paths usually generated from get_file_sample
+    file_array (array): An array of file paths to the emails. Generated from get_file_sample
 
 Returns:
-    array: of the contents of each file.
+    array: of the contents of each file as an email.message object.
 """
 def populate_files(file_paths):
     msg_array = []
@@ -75,22 +89,6 @@ def populate_files(file_paths):
     return msg_array
 
 
-"""Processes an individual email and places it within a data frame breaking apart each individual portion
-
-Ars:
-    email_file (string): The raw string of an email containing information such as the sender, ID, email body, and 
-    other arguments
-
-Returns:
-    dataframe: with the properly processed email.
-"""
-def process_email(email_file):
-    return 
-
-"""Reads the email into a dictionary with appropriately named 
-"""
-def process_email(email):
-    return
 def main():
     path = "C:\\Users\\sebtu\\Documents\\NLP Projects\\Enron\\data"
     files = get_file_sample(40, path)
