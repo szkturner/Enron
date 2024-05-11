@@ -66,11 +66,11 @@ Args:
 Returns:
     array: of the contents of each file.
 """
-def populate_files(file_array):
+def populate_files(file_paths):
     msg_array = []
-    for file_path in file_array:
-        with open(file_path, 'r') as file:
-            msg = Parser(policy=default).parse(file)
+    for file_path in file_paths:
+        with open(file_path, 'r') as fp:
+            msg = Parser(policy=default).parse(fp)
             msg_array.append(msg)
     return msg_array
 
